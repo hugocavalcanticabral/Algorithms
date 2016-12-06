@@ -18,10 +18,15 @@ int path[MAXN][MAXN];	// guarda o pai no menor caminho	//RECONSTRUIR O MENOR CAM
 
 void floydWarshall() {
 	// passo 1: dist[i][j] = adj[i][j]
+	memset(dist, 0x3f3f3f3f, sizeof dist);
+	
 	for(int i=0 ; i<n ; i++)
-		for(int j=0 ; j<n ; j++)
-			dist[i][j] = adj[i][j];
-		path[i][i] = i;
+		for(int j=0 ; j<n ; j++){
+			if(adj[i][j]!=0){
+				dist[i][j] = adj[i][j];
+				path[i][j] = j;
+			}
+		}
 	}
 
 	for(int k=0 ; k<n ; k++)
@@ -32,14 +37,14 @@ void floydWarshall() {
 			{
 				if(dist[i][j] > dist[i][k] + dist[k][j]) {
 					dist[i][j] = dist[i][k] + dist[k][j];
-					path[i][j] = path[k][j];
+					path[i][j] = path[i][k];
 				}
 			}
 		}
 	}
 }
 
-// Recupera o caminho entre vertices, com o vector estando do fim para o comeco
+// Recupera o caminho entre vertices
 vector <int> getPath(int s, int t) {
 	vector <int> res;
 
@@ -48,9 +53,9 @@ vector <int> getPath(int s, int t) {
 		return res;
 	}
 	else {
-		while(!path[s][t] == s) {
-			res.push_back(path[s][t]);
-			t = path[s][t];
+		while(s!=t) {
+			res.push_back(s);
+			s = path[s][t];
 		}
 		return res;
 	}
