@@ -16,7 +16,7 @@ public:
 	// Constructor [ O(X * Y) ]
 	BIT2D(int _max_x, int _max_y) : max_x(_max_x), max_y(_max_y) {
 		for(int i=0 ; i< max_x+1 ; i++){
-			for(int j=0 ; j<max_y+1 ; j++) ft[i][j] = 0;
+			for(int j=0 ; j < max_y+1 ; j++) ft[i][j] = 0;
 		}
 	}
 		
